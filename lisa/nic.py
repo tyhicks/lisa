@@ -161,13 +161,13 @@ class Nics(InitializableMixin):
     def get_nic(self, nic_name: str) -> NicInfo:
         return self.nics[nic_name]
 
-    def get_test_nic(self) -> Tuple[int, NicInfo]:
+    def get_test_nic(self) -> NicInfo:
         # convenience method
         # get the 'last' nic in the list of nics
         number_of_nics = len(self.get_upper_nics())
         assert_that(number_of_nics).is_greater_than(0)
         # will be used for tests with a single active vf, so id = 0
-        return (0, self.nics[self.get_upper_nics()[number_of_nics - 1]])
+        return self.nics[self.get_upper_nics()[number_of_nics - 1]]
 
     def nic_info_is_present(self, nic_name: str) -> bool:
         return nic_name in self.get_upper_nics() or nic_name in self.get_lower_nics()
